@@ -15,7 +15,7 @@ def index():
 @app.route('/upload', methods=['POST'])
 def upload():
 
-    pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract.exe'
+    # pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract.exe'
 
 
     # Get the uploaded image file from the form
