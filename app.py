@@ -13,7 +13,7 @@ def index():
 
 @app.route('/upload', methods=['POST'])
 def upload():
-    os.chmod(r'./Tesseract-OCR/tesseract.exe', 0b111101101)
+    # os.chmod(r'./Tesseract-OCR/tesseract.exe', 0o0777)
     
     pytesseract.pytesseract.tesseract_cmd = r'./Tesseract-OCR/tesseract.exe'
 
