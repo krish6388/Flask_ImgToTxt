@@ -1,7 +1,8 @@
 from flask import Flask, render_template, request
 from PIL import Image
 import pytesseract
-import datetime, time
+import time
+from datetime import datetime, timedelta
 import threading
 import os
 import requests
@@ -36,12 +37,12 @@ def upload():
     extraction_time_str = request.form['extraction_time']
 
     # Parse the extraction time as a datetime object
-    extraction_time = datetime.datetime.strptime(extraction_time_str, '%Y-%m-%dT%H:%M')
+    extraction_time = datetime.strptime(extraction_time_str, '%Y-%m-%dT%H:%M')
 
     # Calculate the time difference from the current time to the extraction time
-    now_time = datetime.datetime.now()
+    now_time = datetime.utcnow() + timedelta(hours=5.5) #datetime.datetime.now()
     if extraction_time > now_time:
-        dif = (extraction_time - datetime.datetime.now()).total_seconds()
+        dif = (extraction_time - now_time).total_seconds()
     else:
         dif = 0
     time.sleep(dif)
