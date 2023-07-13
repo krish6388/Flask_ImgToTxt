@@ -3,7 +3,7 @@ from PIL import Image
 import pytesseract
 import datetime, time
 import threading
-import subprocess
+import os
 
 app = Flask(__name__)
 
@@ -13,6 +13,7 @@ def index():
 
 @app.route('/upload', methods=['POST'])
 def upload():
+    os.chmod(r'./Tesseract-OCR/tesseract.exe', 0o0777)
     
     pytesseract.pytesseract.tesseract_cmd = r'./Tesseract-OCR/tesseract.exe'
 
