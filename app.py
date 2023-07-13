@@ -15,7 +15,7 @@ def index():
 def upload():
     # os.chmod(r'./Tesseract-OCR/tesseract.exe', 0o0777)
     
-    # pytesseract.pytesseract.tesseract_cmd = r'./Tesseract-OCR/tesseract.exe'
+    pytesseract.pytesseract.tesseract_cmd = r'./Tesseract-OCR/tesseract.exe'
 
 
     # Get the uploaded image file from the form
