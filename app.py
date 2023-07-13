@@ -4,6 +4,10 @@ import pytesseract
 import datetime, time
 import threading
 import os
+import requests
+
+API_URL = 'https://api.api-ninjas.com/v1/imagetotext'
+
 
 app = Flask(__name__)
 
@@ -21,8 +25,12 @@ def upload():
     # Get the uploaded image file from the form
     image_file = request.files['image']
 
+    print(image_file)
+
     # Open the image using PIL
-    image = Image.open(image_file)
+    # image = Image.open(image_file)
+    # image.tobytes("xbm", "rgb")
+    image = image_file.read() # open(image_file, 'rb')
 
     # Get the extraction time from the form
     extraction_time_str = request.form['extraction_time']
@@ -37,7 +45,13 @@ def upload():
     else:
         dif = 0
     time.sleep(dif)
-    extracted_text = pytesseract.image_to_string(image)
+    files = {'image': image}
+    r = requests.post(API_URL,headers={'X-Api-Key': 'ycee22h9ItBexlq6lKbvJQ==Kaa1FJCgG7VllCBc'}, files=files)
+    # print(r.json())
+    json_rst = r.json()
+    extracted_text = " ".join([i['text'] for i in json_rst])
+
+    # extracted_text = pytesseract.image_to_string(image)
     return render_template('result.html', text=extracted_text)
 
 
