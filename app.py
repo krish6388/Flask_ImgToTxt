@@ -3,9 +3,20 @@ from PIL import Image
 import pytesseract
 import datetime, time
 import threading
+import subprocess
 
 app = Flask(__name__)
 
+def find_tesseract_path():
+    try:
+        # Use the "which" command to locate the Tesseract executable
+        result = subprocess.run(['which', 'tesseract'], capture_output=True, text=True)
+        print('result=', result)
+        tesseract_path = result.stdout.strip()
+        return tesseract_path
+    except Exception as e:
+        print("Error finding Tesseract path:", e)
+        return None
 
 
 @app.route('/')
@@ -14,8 +25,18 @@ def index():
 
 @app.route('/upload', methods=['POST'])
 def upload():
+    
+    pytesseract.pytesseract.tesseract_cmd = r'.\Tesseract-OCR\tesseract.exe'
+    # tesseract_path = pytesseract.get_tesseract_version()[0]
 
-    pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract.exe'
+    # print("Tesseract Path:", tesseract_path)
+    # pytesseract_path = find_tesseract_path()
+    # print("Path=", pytesseract_path)
+    # if pytesseract_path:
+    #     # Set the pytesseract path
+    #     print(pytesseract_path)
+    #     pytesseract.pytesseract.tesseract_cmd = pytesseract_path
+
 
 
     # Get the uploaded image file from the form
