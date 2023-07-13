@@ -4,7 +4,29 @@
     <title>Result</title>
 </head>
 <body>
-    <h1>Extracted Text</h1>
-    <pre>{{ text }}</pre>
+    <h1 id="head_msg" style="display: none">Extracted Text</h1>
+    <h2 id ="wait_msg"> Waiting for {{ timer }} seconds before extraction </h2>
+    <h2 id='txt' style="display: none">{{ text }} </h2>
+    <p id='tm' style="display: none">{{ timer }} </p>
+    <p id='ext_text'></p>
+    <script>
+        function sleep(ms) {
+           return new Promise(resolve => setTimeout(resolve, ms));
+        }
+        async function Tutor() {
+            let txt = document.getElementById("txt").innerHTML;
+            let timer = document.getElementById("tm").innerHTML;
+           
+           for (let i = 1; i <2 ; i++) {        
+              await sleep(timer*1000);
+              document.getElementById("txt").style.display = "block";
+              document.getElementById("wait_msg").style.display = "none";
+              document.getElementById("head_msg").style.display = "block";
+           }
+        }
+        Tutor()
+     </script>
+    
+    
 </body>
 </html>

@@ -45,21 +45,16 @@ def upload():
         dif = (extraction_time - now_time).total_seconds()
     else:
         dif = 0
-    time.sleep(dif)
+    # time.sleep(dif)
     files = {'image': image}
     r = requests.post(API_URL,headers={'X-Api-Key': 'ycee22h9ItBexlq6lKbvJQ==Kaa1FJCgG7VllCBc'}, files=files)
-    # print(r.json())
     json_rst = r.json()
     extracted_text = " ".join([i['text'] for i in json_rst])
 
     # extracted_text = pytesseract.image_to_string(image)
-    return render_template('result.html', text=extracted_text)
+    return render_template('result.html', text=extracted_text, timer = dif)
 
 
-    # Schedule the extraction process to run after the time difference
-    # extraction_thread = threading.Timer(dif, perform_extraction, args=(image,))
-    # extraction_thread.start()
-    # extraction_thread.join()
 
     return render_template('result.html')
 
